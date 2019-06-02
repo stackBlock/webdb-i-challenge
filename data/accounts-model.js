@@ -8,8 +8,8 @@ module.exports = {
   update
 };
 
-function find(query={}) {
-  let { page = 1, limit = 5, sortby = 'id', sortdir = 'asc' } = query;
+function find(query = {}) {
+  let { page = 1, limit = 10, sortby = 'id', sortdir = 'asc' } = query;
   const offset = limit * (page - 1);
 
   let rows = db('accounts')
@@ -27,7 +27,8 @@ function findById(id) {
 }
 
 async function add(account) {
-  const [id] = await db('accounts').insert(account);
+  const [id] = await db('accounts')
+    .insert(account);
 
   return findById(id);
 }
